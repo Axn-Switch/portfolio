@@ -1,6 +1,5 @@
-
-
-
+import { motion, stagger, useAnimate } from "framer-motion";
+import { useEffect } from "react";
 
 function preloader() {
 
@@ -28,12 +27,46 @@ function preloader() {
     ]
 
     const res = quotes[(Math.floor(Math.random() * quotes.length))];
+    const words = res.quote;
 
+    //getting the values into an array for use
+    const [scope, animate] = useAnimate();
+    let wordsArray = words.split(" ");
+    useEffect(() => {
+      animate(
+        "span",
+        {
+          opacity: 1,
+        },
+        {
+          duration: 2,
+          delay: stagger(0.2),
+        }
+      );
+    }, [scope.current]);
+
+    //to render the effect
+    const renderWords = () => {
+        return (
+          <motion.div ref={scope}>
+            {wordsArray.map((word, idx) => {
+              return (
+                <motion.span
+                  key={word + idx}
+                  className="dark:text-white text-black opacity-0 text-xl font-bold"
+                >
+                  {word}{" "}
+                </motion.span>
+              );
+            })}
+          </motion.div>
+        );
+      };
 
   return (
     <>
         <div>
-            <p className="text-xl font-bold">{res.quote}</p>
+            {renderWords()}
             <p > ~ {res.author}</p>
         </div>
 
