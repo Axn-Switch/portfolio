@@ -27,15 +27,14 @@ function preloader() {
         },
     ]
 
-    const res = () => {
-        
-        console.log(quotes[(Math.floor(Math.random() * quotes.length))]);
-    }
+    const res = quotes[(Math.floor(Math.random() * quotes.length))];
+
+
   return (
     <>
         <div>
-            <p className=""></p>
-            <p ></p>
+            <p className="text-xl font-bold">{res.quote}</p>
+            <p > ~ {res.author}</p>
         </div>
 
     </>
